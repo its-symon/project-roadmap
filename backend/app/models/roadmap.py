@@ -29,6 +29,7 @@ class Upvote(Base):
 
     user = relationship("User", back_populates="upvotes")
     roadmap_item = relationship("RoadmapItem", back_populates="upvotes")
+
 class Comment(Base):
     __tablename__ = "comments"
 
