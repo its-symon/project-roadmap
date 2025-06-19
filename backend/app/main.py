@@ -7,8 +7,6 @@ from app.create_sample_data import create_sample_data
 from app.routers import auth, roadmap
 from datetime import datetime, timedelta
 
-app = FastAPI()
-
 api_v1_prefix = "/api/v1"
 
 @asynccontextmanager
@@ -21,7 +19,7 @@ async def lifespan(app: FastAPI):
     await create_sample_data()
     yield
 
-app.router.lifespan_context = lifespan
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(auth.router, prefix=f"{api_v1_prefix}/auth")
 app.include_router(roadmap.router, prefix=f"{api_v1_prefix}/roadmap")

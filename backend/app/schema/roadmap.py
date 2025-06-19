@@ -9,7 +9,7 @@ class RoadmapItemBase(BaseModel):
 
 class RoadmapItemOut(RoadmapItemBase):
     id: int
-    upvotes_count: int
+    # upvotes_count: int
 
     class Config:
         from_attributes = True

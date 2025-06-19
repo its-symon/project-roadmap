@@ -1,10 +1,11 @@
-from app.db import AsyncSession
+from app.db import AsyncSessionLocal
 from app.models.roadmap import RoadmapItem
 import random
 from datetime import datetime, timedelta
 
+
 async def create_sample_data():
-    async with AsyncSession() as db:
+    async with AsyncSessionLocal() as db:
         sample_items = [
             ("Dark Mode Support", "Implement dark theme across the application", "Frontend", "Planning"),
             ("User Authentication", "JWT-based authentication system", "Security", "Completed"),
@@ -17,11 +18,11 @@ async def create_sample_data():
             ("Notifications", "Email and push notifications", "Integration", "Completed"),
             ("Search Engine", "Advanced search functionality", "Backend", "On Hold")
         ]
-        
+
         for title, description, category, status in sample_items:
             days_ago = random.randint(1, 90)
             created_at = datetime.now() - timedelta(days=days_ago)
-            
+
             item = RoadmapItem(
                 title=title,
                 description=description,
@@ -30,7 +31,7 @@ async def create_sample_data():
                 created_at=created_at
             )
             db.add(item)
-        
+
         await db.commit()
         print("Sample data created successfully!")
 
